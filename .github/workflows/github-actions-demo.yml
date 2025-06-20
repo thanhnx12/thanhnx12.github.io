@@ -1,11 +1,8 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-
 on: [push]
-
 jobs:
-  explore-github-actions:
-    name: Explore GitHub Actions
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -18,18 +15,6 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: ShellCheck
         uses: ludeeus/action-shellcheck@2.0.0
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-
-  lint-markdown:
-    name: Lint Markdown with Proselint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Run Proselint
-        uses: thanhnx12/proselint-md-check@bc7c2d4ce4800f5208b470b7dc34f45c252f9e47
-        with:
-          fail_on_error: true

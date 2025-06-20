@@ -1,0 +1,42 @@
+name: Lint Markdown with Proselint
+
+on: [push, pull_request]
+
+jobs:
+lint:
+name: Run Proselint
+runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Proselint
+        run: pip install proselint
+
+      - name: Run Proselint on all Markdown files
+        run: |
+          echo "Scanning Markdown files with Proselint..."
+          files=$(find . -type f -name "*.md")
+          has_issues=0
+
+          for file in $files; do
+            echo "🔍 Linting $file"
+            output=$(proselint "$file")
+            if [[ -n "$output" ]]; then
+              echo "$output"
+              has_issues=1
+            fi
+          done
+
+          if [[ $has_issues -eq 1 ]]; then
+            echo "❌ Proselint found issues."
+            exit 1
+          else
+            echo "✅ No Proselint issues found."
+          fi
