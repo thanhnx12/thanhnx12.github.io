@@ -18,3 +18,12 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: ShellCheck
         uses: ludeeus/action-shellcheck@2.0.0
+        name: Lint Markdown
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: thanhnx12/proselint-md-check@bc7c2d4ce4800f5208b470b7dc34f45c252f9e47
+        with:
+          fail_on_error: true
